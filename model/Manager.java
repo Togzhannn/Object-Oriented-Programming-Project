@@ -1,7 +1,7 @@
-package university3.model;
+package model;
 
-import university3.enums.ManagerType;
-import university3.util.SystemLogger;
+import enums.ManagerType;
+import util.SystemLogger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
