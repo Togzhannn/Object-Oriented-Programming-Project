@@ -52,7 +52,7 @@ public class Student extends User implements Serializable {
         return true;
     }
 
-    // Called by Manager after approval
+    
     public void confirmCourseRegistration(Course c) {
         if (pendingCourses.remove(c)) {
             registeredCourses.add(c);
@@ -100,16 +100,34 @@ public class Student extends User implements Serializable {
         System.out.println("  Supervisor assigned for " + name + ".");
     }
 
-    // Getters
-    public int getYear()                      { return year; }
-    public String getMajor()                  { return major; }
-    public int getCurrentCredits()            { return currentCredits; }
-    public int getFailCount()                 { return failCount; }
-    public StudentStatus getStatus()          { return status; }
-    public List<Course> getRegisteredCourses(){ return registeredCourses; }
-    public List<Course> getPendingCourses()   { return pendingCourses; }
-    public Researcher getSupervisor()         { return supervisor; }
-    public double getGPA()                    { return transcript.getGPA(); }
+    
+    public int getYear(){ 
+    	return year; 
+    }
+    public String getMajor(){ 
+    	return major; 
+    }
+    public int getCurrentCredits(){ 
+    	return currentCredits; 
+    }
+    public int getFailCount(){ 
+    	return failCount; 
+    }
+    public StudentStatus getStatus(){ 
+    	return status; 
+    }
+    public List<Course> getRegisteredCourses(){ 
+    	return registeredCourses; 
+    }
+    public List<Course> getPendingCourses(){ 
+    	return pendingCourses; 
+    }
+    public Researcher getSupervisor(){ 
+    	return supervisor; 
+    }
+    public double getGPA(){ 
+    	return transcript.getGPA(); 
+    }
 
     @Override
     public String toString() {
