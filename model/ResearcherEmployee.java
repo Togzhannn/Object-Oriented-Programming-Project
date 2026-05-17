@@ -14,23 +14,25 @@ public class ResearcherEmployee extends Employee implements Researcher {
     private final List<ResearchPaper>   papers   = new ArrayList<>();
     private final List<ResearchProject> projects = new ArrayList<>();
 
-    public ResearcherEmployee(int id, String firstName, String lastName,
-                               String email, String password,
-                               String department, double salary,
-                               String position) {
+    public ResearcherEmployee(int id, String firstName, String lastName, String email, String password,
+                              String department, double salary, String position) {
         super(id, firstName, lastName, email, password, department, salary);
         this.position = position;
     }
 
     @Override
     public void addPaper(ResearchPaper paper) {
-        if (!papers.contains(paper)) papers.add(paper);
+        if (!papers.contains(paper)){
+            papers.add(paper);
+        }
     }
 
     @Override
     public void joinProject(ResearchProject project) throws NonResearcherException {
         project.addParticipant(this);
-        if (!projects.contains(project)) projects.add(project);
+        if (!projects.contains(project)){
+            projects.add(project);
+        }
         System.out.println("  " + getFullName() + " joined project: " + project.getTopic());
     }
 
@@ -63,17 +65,19 @@ public class ResearcherEmployee extends Employee implements Researcher {
     @Override
     public void printPapers(Comparator<ResearchPaper> comparator) {
         System.out.println("  Papers by " + getFullName() + " [" + position + "]:");
-        if (papers.isEmpty()) { System.out.println("  No papers published."); return; }
+        if (papers.isEmpty()) { 
+            System.out.println("  No papers published."); return; 
+        }
         papers.stream().sorted(comparator).forEach(p -> System.out.println("  " + p));
     }
 
-    public String getPosition() { return position; }
+    public String getPosition(){ 
+        return position; 
+    }
 
     @Override
     public String toString() {
-        return getFirstName() + " " + getLastName()
-            + " | Position: " + position
-            + " | Dept: " + getDepartment()
+        return getFirstName() + " " + getLastName() + " | Position: " + position + " | Dept: " + getDepartment()
             + " | H-index: " + getHIndex();
     }
 }
