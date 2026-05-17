@@ -3,28 +3,35 @@ package model;
 import enums.StudentStatus;
 import exceptions.CreditLimitExceededException;
 import exceptions.LowHIndexException;
-import exceptions.MaxFailReachedException;
+import exceptions.NonResearcherException;
+import model.researcher.ResearchPaper;
+import model.researcher.ResearchProject;
 import model.researcher.Researcher;
 import model.teacher.*;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Student extends User implements Serializable {
+import java.io.Serializable;
+import java.util.*;
+
+public class Student extends User implements Serializable, Researcher {
     private static final long serialVersionUID = 1L;
 
-    private int year;          
+    private int year;
     private String major;
     private int currentCredits;
     private int failCount;
     private StudentStatus status;
     private Transcript transcript;
     private List<Course> registeredCourses;
-    private List<Course> pendingCourses;  
-    private Researcher supervisor;       
+    private List<Course> pendingCourses;
+    private Researcher supervisor;
 
-    public Student(int id, String firstName, String lastName, String email, String password, int year, String major) {
-        super(id , firstName, lastName, email, password);
+    // ── Поля для Researcher ──
+    private final List<ResearchPaper>   papers   = new ArrayList<>();
+    private final List<ResearchProject> projects = new ArrayList<>();
+
+    public Student(int id, String firstName, String lastName,
+                   String email, String password, int year, String major) {
+        super(id, firstName, lastName, email, password);
         this.year = year;
         this.major = major;
         this.currentCredits = 0;
@@ -33,6 +40,56 @@ public class Student extends User implements Serializable {
         this.transcript = new Transcript(getFirstName() + " " + getLastName());
         this.registeredCourses = new ArrayList<>();
         this.pendingCourses = new ArrayList<>();
+    }
+
+   
+    @Override
+    public void joinProject(ResearchProject project) throws NonResearcherException {
+        if (papers.isEmpty()) {
+            throw new NonResearcherException(
+                getFullName() + " cannot join a project: no research papers published.");
+        }
+        project.addParticipant(this);
+        if (!projects.contains(project)) projects.add(project);
+        System.out.println("  " + getFullName() + " joined project: " + project.getTopic());
+    }
+
+    @Override
+    public void addPaper(ResearchPaper paper) {
+        if (!papers.contains(paper)) papers.add(paper);
+    }
+
+    @Override
+    public int getHIndex() {
+        int[] sorted = papers.stream()
+            .mapToInt(ResearchPaper::getCitations)
+            .boxed()
+            .sorted(Comparator.reverseOrder())
+            .mapToInt(Integer::intValue)
+            .toArray();
+        int h = 0;
+        for (int i = 0; i < sorted.length; i++) {
+            if (sorted[i] >= i + 1) h = i + 1;
+            else break;
+        }
+        return h;
+    }
+
+    @Override
+    public List<ResearchPaper> getResearchPapers() {
+        return Collections.unmodifiableList(papers);
+    }
+
+    @Override
+    public List<ResearchProject> getResearchProjects() {
+        return Collections.unmodifiableList(projects);
+    }
+
+    @Override
+    public void printPapers(Comparator<ResearchPaper> comparator) {
+        System.out.println("  Papers by " + getFullName() + ":");
+        if (papers.isEmpty()) { System.out.println("  No papers."); return; }
+        papers.stream().sorted(comparator).forEach(p -> System.out.println("  " + p));
     }
 
     public boolean requestCourseRegistration(Course c) throws CreditLimitExceededException {
@@ -53,7 +110,6 @@ public class Student extends User implements Serializable {
         return true;
     }
 
-    
     public void confirmCourseRegistration(Course c) {
         if (pendingCourses.remove(c)) {
             registeredCourses.add(c);
@@ -84,7 +140,7 @@ public class Student extends User implements Serializable {
         failCount++;
         if (failCount > 3) {
             status = StudentStatus.EXPELLED;
-            System.out.println("  !! Student " + getFirstName() + " has been EXPELLED (3 fails exceeded).");
+            System.out.println("  !! Student " + getFirstName() + " has been EXPELLED.");
         }
     }
 
@@ -100,34 +156,15 @@ public class Student extends User implements Serializable {
         System.out.println("  Supervisor assigned for " + getFirstName() + ".");
     }
 
-    
-    public int getYear(){ 
-    	return year; 
-    }
-    public String getMajor(){ 
-    	return major; 
-    }
-    public int getCurrentCredits(){ 
-    	return currentCredits; 
-    }
-    public int getFailCount(){ 
-    	return failCount; 
-    }
-    public StudentStatus getStatus(){ 
-    	return status; 
-    }
-    public List<Course> getRegisteredCourses(){ 
-    	return registeredCourses; 
-    }
-    public List<Course> getPendingCourses(){ 
-    	return pendingCourses; 
-    }
-    public Researcher getSupervisor(){ 
-    	return supervisor; 
-    }
-    public double getGPA(){ 
-    	return transcript.getGPA(); 
-    }
+    public int getYear()                       { return year; }
+    public String getMajor()                   { return major; }
+    public int getCurrentCredits()             { return currentCredits; }
+    public int getFailCount()                  { return failCount; }
+    public StudentStatus getStatus()           { return status; }
+    public List<Course> getRegisteredCourses() { return registeredCourses; }
+    public List<Course> getPendingCourses()    { return pendingCourses; }
+    public Researcher getSupervisor()          { return supervisor; }
+    public double getGPA()                     { return transcript.getGPA(); }
 
     @Override
     public String toString() {

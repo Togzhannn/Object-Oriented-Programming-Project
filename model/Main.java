@@ -10,14 +10,13 @@ import java.time.LocalDate;
 import java.util.*;
 
 /**
- * Main — Interactive console menu for the University System.
- *
+Main — Interactive console menu for the University System.
  * Design Patterns:
- *  1. Singleton  — University (one instance for the whole system)
- *  2. Facade     — University as single access point to all data
- *  3. Observer   — Manager.publishNews() notifies subscribed employees
- *  4. Strategy   — ResearchPaperComparators (BY_CITATIONS / BY_DATE / BY_PAGES)
- *  5. Command    — util.Command functional interface used in Admin
+ *  1. Singleton University (one instance for the whole system)
+ *  2. Facade University as single access point to all data
+ *  3. Observer Manager.publishNews() notifies subscribed employees
+ *  4. Strategy ResearchPaperComparators (BY_CITATIONS / BY_DATE / BY_PAGES)
+ *  5. Command util.Command functional interface used in Admin
  */
 public class Main {
 
@@ -29,9 +28,9 @@ public class Main {
     static Teacher profCool;      
     static Teacher lectorAURA;   
     static Student alice, bob, carol;
-    static Researcher researcherwork; 
-    static Course  aiCourse, oopCourse, dbCourse;
-    static ResearchProject aiProject;
+    static ResearcherEmployee researcherwork; 
+    static Course  bitCourse, oopCourse, dbCourse;
+    static ResearchProject Project;
 
     public static void main(String[] args) {
         seedData();
@@ -57,104 +56,87 @@ public class Main {
     static void seedData() {
         admin = new Admin(0, "Super", "Admin", "admin@uni.kz", "admin123");
 
-        manager = new Manager(3, "Dana", "Bekova", "dana@uni.kz", "pass123","Academic Office", 400000.0, ManagerType.OR);
+        manager = new Manager(3, "Dana", "Bekova", "dana@uni.kz", "pass123","dana_manager","Academic Office", 400000.0, ManagerType.OR);
 
         profCool   = new Teacher(1, "Alan", "Turing",  Title.PROFESSOR, "turing@uni.kz", "pass123");
         lectorAURA = new Teacher(2, "John", "Doe",     Title.LECTOR,    "john@uni.kz",   "pass123");
 
-        alice = new Student(4, "Alice", "Smith", "alice@uni.kz", "pass123", 4, "CS");
+        alice = new Student(4, "Alice", "Smith", "alice@uni.kz", "pass123", (int) 4.0, "CS");
         bob   = new Student(5, "Bob",   "Jones", "bob@uni.kz",  "pass123", 2, "CS");
         carol = new Student(6, "Carol", "White", "carol@uni.kz","pass123", 4, "CS");
 
-        // ── ResearcherEmployee: (id, fn, ln, email, pass, dept, salary, position) ──
-        researcherwork = new Employee(7, "Eve", "Curie", "eve@uni.kz", "pass123", "Research Lab", 350000.0, "Research Associate");
+        researcherwork = new ResearcherEmployee(7, "Eve", "Curie", "eve@uni.kz", "pass123", "Research Lab", 350000.0, "Research Associate");
 
         // Papers для profAlan
-        profCool.addPaper(new ResearchPaper("Construction of Quality Guarantee System in Higher Education in China",
-            List.of("Xiushu Tian"), "IEEE Transactions", "10.1109/WKDD.2010.105",
+        profCool.addPaper(new ResearchPaper("Oracle Database In-Memory on Active Data Guard: Real-time Analytics on a Standby Database",
+            List.of("Sukhada Pendse"), "IEEE Transactions", "10.1109/ICDE48307.2020.00139",
             12, LocalDate.of(2022, 3, 15), 85, ResearchTopic.DATABASES));
-        profCool.addPaper(new ResearchPaper("Deep Learning for Vision",
-            List.of("Alan Turing", "Eve Curie"), "Nature MI", "10.1038/002",
+        profCool.addPaper(new ResearchPaper("DDOS Attack Detection in Wireless Network Based On MD",
+            List.of("Noor Hassanin Hashim", "Sattar B. Sadkhan"), "ieee", " 10.1109/IT-ELA57378.2022.10107920",
             8, LocalDate.of(2023, 7, 20), 42, ResearchTopic.NETWORKS));
-        profCool.addPaper(new ResearchPaper("Attention Is All You Need",
-            List.of("Alan Turing"), "NeurIPS", "10.5555/003",
+        profCool.addPaper(new ResearchPaper("A Code Complexity Model of Object Oriented Programming (OOP)",
+            List.of("Hussam Hourani"), "ieee", " 10.1109/JEEIT.2019.8717448",
             15, LocalDate.of(2021, 12, 1), 120, ResearchTopic.OOP));
 
-        // Paper для researchAssoc
-        researcherwork.addPaper(new ResearchPaper("Database Optimization Techniques",
-            List.of("Eve Curie"), "ACM SIGMOD", "10.1145/004",
-            10, LocalDate.of(2023, 5, 10), 30, ResearchTopic.DATABASES));
+        researcherwork.addPaper(new ResearchPaper("Research on Chinese Translation of Fuzzy Semantics of English Modal Verbs Based on Quantification",
+            List.of("Xia He"), "ieee", " 10.1109/ISKE47853.2019.9170391",
+            10, LocalDate.of(2023, 5, 10), 30, ResearchTopic.PHILOSOFHY));
 
-        // Courses
-        aiCourse  = new Course("CS401", "Artificial Intelligence",    6, 4, "CS");
+        bitCourse = new Course("CS401", "Cripta",6, 4, "CS");
         oopCourse = new Course("CS101", "Object-Oriented Programming", 5, 2, "CS");
-        dbCourse  = new Course("CS201", "Databases",                   4, 2, "CS");
+        dbCourse  = new Course("CS201", "Databases",4, 2, "CS");
 
-        // Research project
-        aiProject = new ResearchProject("AI in Education");
+        Project = new ResearchProject("Education for Silly");
 
-        // Регистрируем в University (Singleton + Facade)
-        for (User u : List.of(admin, manager, profCool, lectorAURA, alice, bob, carol, researcherwork)) {
+        for (Object u : List.of(admin, manager, profCool, lectorAURA, alice, bob, carol, researcherwork)) {
             uni.addUser(u);
         }
-        for (Course c : List.of(aiCourse, oopCourse, dbCourse)) uni.addCourse(c);
-        uni.addProject(aiProject);
+        for (Course c : List.of(bitCourse, oopCourse, dbCourse)) uni.addCourse(c);
+        uni.addProject(Project);
 
-        // Курсы открываем и назначаем учителей
-        manager.addCourseForRegistration(aiCourse);
+        manager.addCourseForRegistration(bitCourse);
         manager.addCourseForRegistration(oopCourse);
         manager.addCourseForRegistration(dbCourse);
         manager.assignTeacher(dbCourse,  profCool);
         manager.assignTeacher(oopCourse, lectorAURA);
 
-        // Pre-enroll students and add marks
         try {
-            alice.requestCourseRegistration(aiCourse);
-            manager.approveRegistration(alice, aiCourse);
-            alice.getTranscript().addRecord(aiCourse, new Mark(28, 25, 40)); // 93 = A
+            alice.requestCourseRegistration(bitCourse);
+            manager.approveRegistration(alice,bitCourse);
+            alice.getTranscript().addRecord(bitCourse, new Mark(28, 25, 40)); // 93 = A
 
             bob.requestCourseRegistration(oopCourse);
             manager.approveRegistration(bob, oopCourse);
             bob.getTranscript().addRecord(oopCourse, new Mark(20, 22, 30)); // 72 = C
 
-            carol.requestCourseRegistration(aiCourse);
-            manager.approveRegistration(carol, aiCourse);
+            carol.requestCourseRegistration(bitCourse);
+            manager.approveRegistration(carol, bitCourse);
             Mark carolMark = new Mark(15, 12, 20); // 47 = F
-            carol.getTranscript().addRecord(aiCourse, carolMark);
+            carol.getTranscript().addRecord(bitCourse, carolMark);
             if (!carolMark.isPassed()) carol.incrementFailCount();
         } catch (CreditLimitExceededException e) {
             System.out.println("Seed error: " + e.getMessage());
         }
-
-        // Observer: подписываем учителей на новости (Teacher extends Employee — ок)
-        // ВАЖНО: если Teacher не extends Employee — убери эти строки
-        // manager.subscribe(profAlan);
-        // manager.subscribe(lectorJohn);
 
         System.out.println("  [System] Loaded: " + uni.getUsers().size()
             + " users | " + uni.getCourses().size() + " courses | "
             + uni.getAllResearchers().size() + " researchers\n");
     }
 
-    // ═══════════════════════════════════════════════
-    //  MAIN MENU
-    // ═══════════════════════════════════════════════
+
     static void printMainMenu() {
-        System.out.println("\n┌─────────────────────────────────┐");
-        System.out.println("│          MAIN MENU              │");
-        System.out.println("├─────────────────────────────────┤");
-        System.out.println("│  1. Admin Panel                 │");
-        System.out.println("│  2. Manager Panel               │");
-        System.out.println("│  3. Teacher Panel               │");
-        System.out.println("│  4. Student Panel               │");
-        System.out.println("│  5. Research Panel              │");
-        System.out.println("│  6. Reports                     │");
-        System.out.println("│  0. Exit                        │");
-        System.out.println("└─────────────────────────────────┘");
+        System.out.println("\n");
+        System.out.println("MAIN MENU            ");
+        System.out.println("1. Admin Panel                 ");
+        System.out.println("2. Manager Panel               ");
+        System.out.println("3. Teacher Panel               ");
+        System.out.println("4. Student Panel               ");
+        System.out.println("5. Research Panel              ");
+        System.out.println("6. Reports                     ");
+        System.out.println("0. Exit                        ");
         System.out.print("  Choice: ");
     }
 
-    // ─────────────────── ADMIN ───────────────────
     static void adminMenu() {
         boolean back = false;
         while (!back) {
@@ -219,7 +201,6 @@ public class Main {
         }
     }
 
-    // ─────────────────── MANAGER ───────────────────
     static void managerMenu() {
         boolean back = false;
         while (!back) {
@@ -274,7 +255,7 @@ public class Main {
                     System.out.print("  News text: ");
                     String news = sc.nextLine().trim();
                     manager.publishNews(news);
-                    uni.addNews(news);  // нужно добавить метод в University
+                    uni.addNews(news); 
                 }
                 case 6 -> manager.viewStudentsSortedByGPA(uni.getStudents());
                 case 7 -> manager.viewStudentsSortedByName(uni.getStudents());
@@ -286,7 +267,6 @@ public class Main {
         }
     }
 
-    // ─────────────────── TEACHER ───────────────────
     static void teacherMenu() {
         listTeachers();
         System.out.print("  Select teacher id: ");
@@ -351,7 +331,6 @@ public class Main {
         }
     }
 
-    // ─────────────────── STUDENT ───────────────────
     static void studentMenu() {
         listStudents();
         System.out.print("  Select student id: ");
@@ -360,7 +339,6 @@ public class Main {
 
         boolean back = false;
         while (!back) {
-            // ── Исправлено: student.getDegree() не существует → убрали ──
             System.out.printf("%n── STUDENT: %s | Year:%d | Major:%s | Credits:%d/21 | GPA:%.2f ──%n",
                 student.getFullName(), student.getYear(), student.getMajor(),
                 student.getCurrentCredits(), student.getGPA());
@@ -434,11 +412,10 @@ public class Main {
         }
     }
 
-    // ─────────────────── RESEARCH ───────────────────
     static void researchMenu() {
         boolean back = false;
         while (!back) {
-            System.out.println("\n── RESEARCH PANEL ──");
+            System.out.println("\nRESEARCH PANEL");
             System.out.println("  1. Print ALL papers in university (sorted)  [Facade]");
             System.out.println("  2. Top N researchers by h-index");
             System.out.println("  3. Top cited researcher of a year");
@@ -507,7 +484,7 @@ public class Main {
                     try {
                         if      (ru instanceof Teacher t)             t.joinProject(proj);
                         else if (ru instanceof Student s)             s.joinProject(proj);
-                        else if (ru instanceof ResearcherEmployee re) re.joinProject(proj);
+                        else if (ru instanceof Researcher re) re.joinProject(proj);
                     } catch (NonResearcherException e) {
                         System.out.println("  ✗ " + e.getMessage());
                     }
@@ -515,7 +492,7 @@ public class Main {
                 case 7 -> {
                     System.out.println("  Demo: lectorJohn (no papers, not professor) joins aiProject...");
                     try {
-                        lectorJohn.joinProject(aiProject);
+                        lectorAURA.joinProject(Project);
                         System.out.println("  ERROR: should have thrown!");
                     } catch (NonResearcherException e) {
                         System.out.println("  ✓ NonResearcherException: " + e.getMessage());
@@ -536,7 +513,6 @@ public class Main {
         }
     }
 
-    // ─────────────────── REPORT ───────────────────
     static void reportMenu() {
         System.out.println("\n── REPORTS ──");
         System.out.println("  1. Full academic report");
@@ -566,10 +542,6 @@ public class Main {
             default -> System.out.println("  Invalid.");
         }
     }
-
-    // ═══════════════════════════════════════════════
-    //  HELPER METHODS
-    // ═══════════════════════════════════════════════
 
     static int readInt() {
         try { return Integer.parseInt(sc.nextLine().trim()); }

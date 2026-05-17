@@ -89,4 +89,8 @@ public class University {
         return "University{name='" + name + "', users=" + users.size()
                 + ", courses=" + courses.size() + "}";
     }
+
+    public void addUser(Object u) {
+        throw new UnsupportedOperationException("Unimplemented method 'addUser'");
+    }
 }

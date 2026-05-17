@@ -73,10 +73,14 @@ public class Teacher extends User implements Researcher {
     public void joinProject(ResearchProject project) throws NonResearcherException {
         if (!isResearcher()) {
             throw new NonResearcherException(
-                getId() + " is not a researcher (needs PROFESSOR title or at least one paper).");
+                getId(), "Teacher " + getFullName() + " is not a researcher and cannot join projects."
+            );
         }
-        project.addParticipant(this);
-        if (!projects.contains(project)) projects.add(project);
+        if (!projects.contains(project)) {
+            projects.add(project);
+        }
+        project.addParticipant(this); 
+        
         System.out.println("  " + getFullName() + " joined project: " + project.getTopic());
     }
 
