@@ -1,4 +1,4 @@
-package university3.model;
+package model;
 
 import university3.enums.RequestStatus;
 
@@ -14,7 +14,7 @@ public class Request implements Serializable {
     private LocalDateTime createdAt;
 
     public Request(User from, String description) {
-        this.fromEmployee = from.getName() + " " + from.getSurname();
+        this.fromEmployee = from.getFirstName() + " " + from.getLastName();
         this.description = description;
         this.status = RequestStatus.PENDING;
         this.createdAt = LocalDateTime.now();

@@ -40,10 +40,10 @@ public class Report implements Serializable {
         System.out.printf("  Total Students: %d%n", students.size());
         System.out.printf("  Average GPA: %.2f%n", getAverageGpa());
         System.out.println("  Top 3 Students:");
-        getTopStudents(3).forEach(s -> System.out.println("    " + s.getName()
-                + " " + s.getSurname() + " | GPA: " + String.format("%.2f", s.getGPA())));
+        getTopStudents(3).forEach(s -> System.out.println("    " + s.getFirstName()
+                + " " + s.getLastName() + " | GPA: " + String.format("%.2f", s.getGPA())));
         System.out.println("  Failing Students: " + getFailingStudents().size());
-        getFailingStudents().forEach(s -> System.out.println("    " + s.getName()
+        getFailingStudents().forEach(s -> System.out.println("    " + s.getLastName()
                 + " | Fails: " + s.getFailCount()));
     }
 }

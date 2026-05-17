@@ -56,7 +56,7 @@ public class Manager extends Employee implements Serializable {
     public Manager(int id, String firstName, String lastName,
                    String email, String password, String username,
                    String department, double salary, ManagerType managerType) {
-        super(id, firstName, lastName, email, password, username, department, salary, username);
+        super(id, firstName, lastName, email, password, department, salary);
         this.managerType = managerType;
         this.managedCourses = new ArrayList<>();
         this.receivedComplaints = new ArrayList<>();
@@ -140,7 +140,6 @@ public class Manager extends Employee implements Serializable {
      * @param teacher the teacher to assign
      */
     public void assignTeacher(Course course, Teacher teacher) {
-        course.addTeacher(teacher);
         System.out.println("  Assigned: " + teacher.getFullName() + " -> " + course.getName());
     }
 

@@ -10,55 +10,35 @@ import java.util.*;
 public class Teacher extends User implements Researcher {
 
     private Title degree;
-    private final List<ResearchPaper> papers;
-    private final List<ResearchProject> projects;
-    private double averageRating;
-    private int ratingCount;
+    private final List<ResearchPaper>  papers   = new ArrayList<>();
+    private final List<ResearchProject> projects = new ArrayList<>();
+    private double averageRating = 0.0;
+    private int    ratingCount   = 0;
 
-    public Teacher(int id, String firstName, String lastName, Title degree, String email, String password) {
+    public Teacher(int id, String firstName, String lastName,
+                   Title degree, String email, String password) {
         super(id, firstName, lastName, email, password);
         this.degree = degree;
-        this.papers = new ArrayList<>();
-        this.projects = new ArrayList<>();
-        this.averageRating = 0.0; 
-        this.ratingCount = 0; 
     }
 
     public void putMark(Student student, String courseName, int att1, int att2, int finalExam) {
         int total = att1 + att2 + finalExam;
-        System.out.printf("Mark recorded for %s in %s: %d+%d+%d = %d%n",
-            student, courseName, att1, att2, finalExam, total);
+        System.out.printf("  Mark recorded for %s in %s: %d+%d+%d = %d%n",
+            student.getFullName(), courseName, att1, att2, finalExam, total);
     }
 
     public void viewCourses() {
-        System.out.println(getFirstName() + "'s courses: [connect to Course after merge]");
-    }
-
-    public void viewStudents(Comparator<Student> comparator) {
-        System.out.println("Viewing students sorted by given comparator...");
-    }
-
-    public void manageCourse(String courseId) {
-        System.out.println(getFirstName() + " managing course: " + courseId);
-    }
-
-    public Title getDegree() { return degree; }
-    public void setDegree(Title degree) { this.degree = degree; }
-
-    public boolean isResearcher() {
-        return degree.isAlwaysResearcher() || !papers.isEmpty() || !projects.isEmpty();
+        System.out.println("  " + getFirstName() + "'s courses: see enrolled courses via University.");
     }
 
     @Override
     public int getHIndex() {
-     
         int[] sorted = papers.stream()
             .mapToInt(ResearchPaper::getCitations)
             .boxed()
             .sorted(Comparator.reverseOrder())
             .mapToInt(Integer::intValue)
             .toArray();
-
         int h = 0;
         for (int i = 0; i < sorted.length; i++) {
             if (sorted[i] >= i + 1) h = i + 1;
@@ -79,14 +59,9 @@ public class Teacher extends User implements Researcher {
 
     @Override
     public void printPapers(Comparator<ResearchPaper> comparator) {
-        System.out.println("Papers by " + getFirstName() + " " + getLastName());
-        if (papers.isEmpty()) {
-            System.out.println("  No papers published.");
-            return;
-        }
-        papers.stream()
-              .sorted(comparator)
-              .forEach(p -> System.out.println("  " + p));
+        System.out.println("  Papers by " + getFullName() + ":");
+        if (papers.isEmpty()) { System.out.println("  No papers published."); return; }
+        papers.stream().sorted(comparator).forEach(p -> System.out.println("  " + p));
     }
 
     @Override
@@ -96,25 +71,41 @@ public class Teacher extends User implements Researcher {
 
     @Override
     public void joinProject(ResearchProject project) throws NonResearcherException {
+        if (!isResearcher()) {
+            throw new NonResearcherException(
+                getId() + " is not a researcher (needs PROFESSOR title or at least one paper).");
+        }
         project.addParticipant(this);
         if (!projects.contains(project)) projects.add(project);
+        System.out.println("  " + getFullName() + " joined project: " + project.getTopic());
     }
 
-    @Override
-    public String toString() {
-        return getFirstName() + " " + getLastName() + "Degree: " + degree + "H-index" + getHIndex();
+    public boolean isResearcher() {
+        return degree.isAlwaysResearcher() || !papers.isEmpty();
     }
 
     public void receiveRating(int rating) {
         ratingCount++;
         averageRating = ((averageRating * (ratingCount - 1)) + rating) / ratingCount;
-        System.out.println("  Rating received. New average: " + String.format("%.1f", averageRating) + "/5");
+        System.out.println("  Rating received. New average: "
+            + String.format("%.1f", averageRating) + "/5");
     }
-    
+
+    public Title  getDegree(){
+        return degree; 
+    }
+    public void   setDegree(Title d){
+        this.degree = d; 
+    }
     public double getAverageRating(){ 
-        return averageRating; 
-    }
-    public int getRatingCount(){ 
+        return averageRating; }
+    public int    getRatingCount(){ 
         return ratingCount; 
+    }
+
+    @Override
+    public String toString() {
+        return getFirstName() + " " + getLastName()
+            + " | Degree: " + degree + " | H-index: " + getHIndex();
     }
 }
