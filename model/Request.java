@@ -1,6 +1,6 @@
 package model;
 
-import university3.enums.RequestStatus;
+import enums.RequestStatus;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
