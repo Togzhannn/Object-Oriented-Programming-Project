@@ -40,7 +40,7 @@ public class ResearchProject {
     }
 
     public void printPapers(Comparator<ResearchPaper> comparator) {
-        System.out.println("=== Papers in project: " + topic + " ===");
+        System.out.println("\n   Papers in project: " + topic + "    ");
         papers.stream().sorted(comparator).forEach(p -> System.out.println("  " + p));
     }
 
