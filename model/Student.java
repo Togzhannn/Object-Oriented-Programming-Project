@@ -4,6 +4,7 @@ import enums.StudentStatus;
 import exceptions.CreditLimitExceededException;
 import exceptions.LowHIndexException;
 import exceptions.NonResearcherException;
+import exceptions.MaxFailReachedException;
 import model.researcher.ResearchPaper;
 import model.researcher.ResearchProject;
 import model.researcher.Researcher;
@@ -126,7 +127,7 @@ public class Student extends User implements Serializable, Researcher {
     }
 
     public void viewMarks() {
-        System.out.println("  === Marks for " + getFirstName() + " ===");
+        System.out.println(" Marks for " + getFirstName());
         transcript.getRecords().forEach((course, mark) ->
                 System.out.println("  " + course.getName() + ": " + mark));
     }
@@ -189,5 +190,8 @@ public class Student extends User implements Serializable, Researcher {
         return super.toString() + " | Year: " + year + " | Major: " + major
                 + " | Credits: " + currentCredits + " | GPA: " + String.format("%.2f", getGPA())
                 + " | Status: " + status;
+    }
+    public boolean isPassed() {
+        throw new UnsupportedOperationException("Unimplemented method 'isPassed'");
     }
 }
