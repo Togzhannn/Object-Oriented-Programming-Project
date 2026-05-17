@@ -33,7 +33,7 @@ public class Transcript implements Serializable {
     }
 
     public void print() {
-        System.out.println("  === Transcript: " + studentName + " ===");
+        System.out.println("\n    Transcript: " + studentName + "     ");
         if (records.isEmpty()) { System.out.println("  No records."); return; }
         for (Map.Entry<Course, Mark> entry : records.entrySet()) {
             System.out.println("  " + entry.getKey().getName()

@@ -187,9 +187,9 @@ public class Student extends User implements Serializable, Researcher {
 
     @Override
     public String toString() {
-        return super.toString() + " | Year: " + year + " | Major: " + major
-                + " | Credits: " + currentCredits + " | GPA: " + String.format("%.2f", getGPA())
-                + " | Status: " + status;
+        return super.toString() + " Year: " + year + ", Major: " + major
+                + ", Credits: " + currentCredits + ", GPA: " + String.format("%.2f", getGPA())
+                + ", Status: " + status;
     }
     public boolean isPassed() {
         throw new UnsupportedOperationException("Unimplemented method 'isPassed'");

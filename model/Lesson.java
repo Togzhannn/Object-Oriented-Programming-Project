@@ -46,7 +46,7 @@ public class Lesson implements Serializable {
 
     @Override
     public String toString() {
-        return "[Lesson] " + type + " | Course: " + course.getName()
-                + " | " + dateTime + " | Room: " + room;
+        return "Lesson type: " + type + " for course " + course.getName() 
+                + " on " + dateTime + " in room " + room;
     }
 }

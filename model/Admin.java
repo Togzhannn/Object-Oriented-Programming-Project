@@ -21,7 +21,7 @@ public class Admin extends User implements Serializable {
 
     public boolean addUser(User user) {
         Command addCommand = () ->
-            SystemLogger.getInstance().log("ADMIN [" + getFullName() + "] added user: " + user.getFullName());
+            SystemLogger.getInstance().log("Admin " + getFullName() + " created a new user: " + user.getFullName());
         if (users.contains(user)) {
             System.out.println("User " + user.getFullName() + " already exists.");
             return false;
@@ -76,7 +76,7 @@ public class Admin extends User implements Serializable {
         int id = parseId(userId);
         User user = findById(id);
         user.setPassword(newPassword);
-        SystemLogger.getInstance().log("ADMIN [" + getFullName() + "] reset password for id=" + userId);
+        SystemLogger.getInstance().log("Admin " + getFullName() + " reset password for user ID " + userId);
         System.out.println("Password reset successfully for id=" + userId);
         return true;
     }
@@ -92,7 +92,7 @@ public class Admin extends User implements Serializable {
     public boolean unblockUser(String userId) throws UserNotFoundException {
         int id = parseId(userId);
         User user = findById(id);
-        SystemLogger.getInstance().log("ADMIN [" + getFullName() + "] UNBLOCKED user: " + user.getFullName() + " (id=" + userId + ")");
+        SystemLogger.getInstance().log("Admin " + getFullName() + " unblocked user " + user.getFullName() + " with ID " + userId);
         System.out.println("User " + user.getFullName() + " has been unblocked.");
         return true;
     }
@@ -114,7 +114,7 @@ public class Admin extends User implements Serializable {
 
     @Override
     public String toString() {
-        return "Admin{id=" + getId() + ", name='" + getFullName() + "', usersCount=" + users.size() + "}";
+        return "Admin: " + getFullName() + " (ID: " + getId() + ", managing " + users.size() + " users)";
     }
 
     public List<User> getUsers() {

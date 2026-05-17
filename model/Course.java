@@ -99,9 +99,9 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "[Course] " + name + " (" + courseId + ") | Credits: " + credits
-                + " | Year: " + year + " | Major: " + major
-                + " | Open: " + openForRegistration
-                + " | Students: " + enrolledStudents.size();
+        return "Course: " + name + " [" + courseId + "], Credits: " + credits 
+                + ", Year: " + year + ", Major: " + major 
+                + ", Registration Open: " + openForRegistration 
+                + ", Students Enrolled: " + enrolledStudents.size();
     }
 }

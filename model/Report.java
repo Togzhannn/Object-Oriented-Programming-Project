@@ -36,7 +36,7 @@ public class Report implements Serializable {
     }
 
     public void printReport() {
-        System.out.println("    Academic Report     ");
+        System.out.println("\n    Academic Report     ");
         System.out.printf("  Total Students: %d%n", students.size());
         System.out.printf("  Average GPA: %.2f%n", getAverageGpa());
         System.out.println("  Top 3 Students: ");

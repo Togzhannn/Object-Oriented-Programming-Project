@@ -38,7 +38,7 @@ public class Complaint implements Serializable {
 
     @Override
     public String toString() {
-        return "Complaint{author='" + author.getFullName() + "', text='" + text + "', status=" + status + "}";
+        return "Complaint by " + author.getFullName() + ": " + text + " (Status: " + status + ")";
     }
 
     public Employee getAuthor() {

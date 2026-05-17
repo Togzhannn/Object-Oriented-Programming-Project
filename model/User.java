@@ -45,7 +45,7 @@ public abstract class User implements Serializable {
 
     @Override
     public String toString() {
-        return "User{id=" + id + ", name='" + getFullName() + "', email='" + email + "'}";
+        return "User: " + getFullName() + " (ID: " + id + ", Email: " + email + ")";
     }
 
     @Override

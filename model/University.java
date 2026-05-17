@@ -104,8 +104,7 @@ public class University {
 
     @Override
     public String toString() {
-        return "University{name='" + name + "', users=" + users.size()
-                + ", courses=" + courses.size() + "}";
+        return "University: " + name + " (Total Users: " + users.size() + ", Total Courses: " + courses.size() + ")";
     }
 
 }

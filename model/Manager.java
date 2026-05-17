@@ -76,7 +76,7 @@ public class Manager extends Employee implements Serializable {
     }
 
     public void viewComplaints() {
-        System.out.println("  === Complaints ===");
+        System.out.println("\n  Complaints    ");
         if (receivedComplaints.isEmpty()) {
             System.out.println("  No complaints.");
             return;
@@ -85,7 +85,7 @@ public class Manager extends Employee implements Serializable {
     }
 
     public void viewRequests() {
-        System.out.println("  === Pending Requests ===");
+        System.out.println("\n   Pending Requests    ");
         if (getRequests().isEmpty()) {
             System.out.println("  No requests.");
             return;
@@ -95,7 +95,7 @@ public class Manager extends Employee implements Serializable {
 
    
     public void viewStudentsSortedByGPA(List<Student> students) {
-        System.out.println("  === Students by GPA ===");
+        System.out.println("\n   Students by GPA    ");
         students.stream()
                 .sorted(Comparator.comparingDouble(Student::getGPA).reversed())
                 .forEach(s -> System.out.println("  "
@@ -105,14 +105,14 @@ public class Manager extends Employee implements Serializable {
 
   
     public void viewStudentsSortedByName(List<Student> students) {
-        System.out.println("  === Students by Name ===");
+        System.out.println("\n   Students by Name     ");
         students.stream()
                 .sorted(Comparator.comparing(Student::getLastName))
                 .forEach(s -> System.out.println("  " + s));
     }
 
     public void viewTeachersSortedByName(List<Teacher> teachers) {
-        System.out.println("  === Teachers by Name ===");
+        System.out.println("\n   Teachers by Name    ");
         teachers.stream()
                 .sorted(Comparator.comparing(Teacher::getLastName))
                 .forEach(t -> System.out.println("  " + t));
