@@ -5,7 +5,7 @@ import enums.*;
 import exceptions.*;
 import model.researcher.*;
 import model.teacher.*;
-
+import exceptions.MaxFailReachedException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -114,7 +114,7 @@ public class Main {
 
             dilara.requestCourseRegistration(bitCourse);
             manager.approveRegistration(dilara, bitCourse);
-            Mark carolMark = new Mark(15, 12, 40); 
+            Mark dilaraMark = new Mark(15, 12, 40); 
             dilara.getTranscript().addRecord(bitCourse, dilaraMark);
             if (!dilara.isPassed()) dilara.incrementFailCount();
         } catch (CreditLimitExceededException e) {
@@ -317,8 +317,11 @@ public class Main {
                     Mark m = new Mark(a1, a2, fe);
                     s.getTranscript().addRecord(c, m);
                     if (!m.isPassed()) {
-                        s.incrementFailCount();
-                        System.out.println("  ⚠ Student failed. Fail count: " + s.getFailCount());
+                        try {
+                            s.incrementFailCount();
+                        } catch (MaxFailReachedException e) {
+                            System.out.println("  !! " + e.getMessage());
+                        }
                     }
                     System.out.println("  Grade: " + m.getLetterGrade() + " | Total: " + m.getTotal());
                 }
@@ -352,6 +355,7 @@ public class Main {
             System.out.println("  5. Rate a teacher");
             System.out.println("  6. Assign research supervisor (4th year only)");
             System.out.println("  7. View news");
+            System.out.println("  8. View teachers of a course");
             System.out.println("  0. Back");
             System.out.print("  Choice: ");
 
@@ -408,6 +412,16 @@ public class Main {
                     List<String> newsList = uni.getNews();
                     if (newsList.isEmpty()) System.out.println("  No news.");
                     else newsList.forEach(n -> System.out.println("  • " + n));
+                }
+                case 8 -> {
+                    listCourses();
+                    System.out.print("  Course id: ");
+                    Course c = findCourse(sc.nextLine().trim());
+                    if (c == null) { System.out.println("  Not found."); break; }
+                    System.out.println("  === Teachers of " + c.getName() + " ===");
+                    if (c.getInstructors().isEmpty()) System.out.println("  No teachers assigned.");
+                    else c.getInstructors().forEach(t -> System.out.println("  " + t.getFullName() + " | " + t.getDegree()
+                                                                            + " | Rating: " + String.format("%.1f", t.getAverageRating())));
                 }
                 case 0 -> back = true;
                 default -> System.out.println("  Invalid.");
