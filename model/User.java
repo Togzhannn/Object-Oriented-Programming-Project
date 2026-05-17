@@ -2,9 +2,12 @@ package model;
 
 import exceptions.InfoNotCorrectException;
 import util.SystemLogger;
+
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class User {
+public abstract class User implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private int id;
     private String firstName;
