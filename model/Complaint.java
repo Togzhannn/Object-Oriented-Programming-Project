@@ -2,7 +2,10 @@ package model;
 
 import enums.ComplaintStatus;
 
-public class Complaint {
+import java.io.Serializable;
+
+public class Complaint implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Employee author;
     private String text;
