@@ -2,3 +2,5 @@
 /UserNotFoundException.class
 /CreditLimitExceededException.class
 /MaxFailReachedException.class
+/LowHIndexException.class
+/NonResearcherException.class
