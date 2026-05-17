@@ -32,12 +32,21 @@ public class Main {
         System.out.print("Password: ");
         String pw = sc.nextLine();
 
-        try {
-            admin.login(em, pw);
-        } catch (InfoNotCorrectException e) {
-        System.out.println("Access denied: " + e.getMessage());
-        return;
-    }
+        User loggedUser = null;
+        for (User u : uni.getUsers()) {
+          if (u.getEmail().equals(em) && u.getPassword().equals(pw)) {
+          loggedUser = u;
+          break;
+          }
+        }
+
+
+        if (loggedUser == null) {
+           System.out.println("Access denied: Invalid email or password.");
+           return;
+            }
+
+        System.out.println("Welcome, " + loggedUser.getFullName() + "!");
 
         boolean running = true;
         while (running) {
