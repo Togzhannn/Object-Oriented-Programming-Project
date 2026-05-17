@@ -53,7 +53,7 @@ public class Main {
         lectorAURA = new Teacher(2, "Life", "Good",     Title.LECTOR,    "good@uni.kz",   "pass123");
 
         togzhan = new Student(4, "togzann", "ree", "alice@uni.kz", "pass123", (int) 4.0, "CS");
-        me  = new Student(5, "Moldyr",   "bee", "bob@uni.kz",  "pass123", 2, "CS");
+        moli  = new Student(5, "Moldyr",   "bee", "bob@uni.kz",  "pass123", 2, "CS");
         dilara = new Student(6, "dilara", "White", "carol@uni.kz","pass123", 4, "CS");
 
         researcherwork = new ResearcherEmployee(7, "Eve", "Curie", "eve@uni.kz", "pass123", "Research Lab", 350000.0, "Research Associate");
@@ -78,7 +78,7 @@ public class Main {
 
         Project = new ResearchProject("Education for Silly");
 
-        for (User u : List.of(admin, manager, profCool, lectorAURA, alice, bob, carol, researcherwork)) {
+        for (User u : List.of(admin, manager, profCool, lectorAURA, togzhan, moli, dilara, researcherwork)) {
             uni.addUser(u);
         }
         for (Course c : List.of(bitCourse, oopCourse, dbCourse)) uni.addCourse(c);
@@ -91,17 +91,17 @@ public class Main {
         manager.assignTeacher(oopCourse, lectorAURA);
 
         try {
-            alice.requestCourseRegistration(bitCourse);
-            manager.approveRegistration(me,bitCourse);
-            me.getTranscript().addRecord(bitCourse, new Mark(28, 25, 40)); // 93 = A
+            moli.requestCourseRegistration(bitCourse);
+            manager.approveRegistration(moli,bitCourse);
+            moli.getTranscript().addRecord(bitCourse, new Mark(28, 25, 40)); // 93 = A
 
             togzhan.requestCourseRegistration(oopCourse);
             manager.approveRegistration(togzhan, oopCourse);
-            bob.getTranscript().addRecord(oopCourse, new Mark(20, 22, 30)); // 72 = C
+            togzhan.getTranscript().addRecord(oopCourse, new Mark(20, 22, 30)); // 72 = C
 
             dilara.requestCourseRegistration(bitCourse);
             manager.approveRegistration(dilara, bitCourse);
-            Mark carolMark = new Mark(15, 12, 40); // 47 = F
+            Mark carolMark = new Mark(15, 12, 40); 
             dilara.getTranscript().addRecord(bitCourse, dilaraMark);
             if (!dilara.isPassed()) dilara.incrementFailCount();
         } catch (CreditLimitExceededException e) {
@@ -209,7 +209,7 @@ public class Main {
 
             switch (readInt()) {
                 case 1 -> {
-                    System.out.println("  === Courses ===");
+                    System.out.println(" Courses");
                     uni.getCourses().forEach(c -> System.out.println("  " + c));
                 }
                 case 2 -> {
