@@ -116,15 +116,13 @@ public class Main {
             manager.approveRegistration(dilara, bitCourse);
             Mark dilaraMark = new Mark(15, 12, 40); 
             dilara.getTranscript().addRecord(bitCourse, dilaraMark);
-             if (!dilara.isPassed())
-                try {
-                    dilara.incrementFailCount();
-                } catch (MaxFailReachedException e) {
-                    e.printStackTrace();
-                }
+             if (!dilara.isPassed()) dilara.incrementFailCount();
         } catch (CreditLimitExceededException e) {
             System.out.println("Seed error: " + e.getMessage());
-        }
+        } catch (MaxFailReachedException e) {
+			e.printStackTrace();
+		}
+       
 
         System.out.println("  [System] Loaded: " + uni.getUsers().size()
             + " users | " + uni.getCourses().size() + " courses | "
