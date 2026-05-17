@@ -29,7 +29,12 @@ public class Transcript implements Serializable {
             totalPoints += grade * credits;
             totalCredits += credits;
         }
-        return totalCredits == 0 ? 0.0 : totalPoints / totalCredits;
+        if (totalCredits == 0){
+            return 0.0;
+        }
+        else{
+            return totalPoints / totalCredits;
+        }
     }
 
     public void print() {
