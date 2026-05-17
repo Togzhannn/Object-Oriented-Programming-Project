@@ -30,27 +30,60 @@ public class Course implements Serializable {
     }
 
     public boolean addTeacher(Teacher t) {
-        if (!instructors.contains(t)) { instructors.add(t); return true; }
+        if (!instructors.contains(t)) { 
+            instructors.add(t); 
+            return true; 
+        }
         return false;
     }
 
     public boolean addStudent(Student s) {
-        if (!enrolledStudents.contains(s)) { enrolledStudents.add(s); return true; }
+        if (!enrolledStudents.contains(s)) { 
+            enrolledStudents.add(s); 
+            return true; 
+        }
         return false;
     }
 
-    public boolean removeStudent(Student s) { return enrolledStudents.remove(s); }
+    public boolean removeStudent(Student s) { 
+        return enrolledStudents.remove(s); 
+    }
 
-    public String getCourseId()               { return courseId; }
-    public String getName()                   { return name; }
-    public int getCredits()                   { return credits; }
-    public int getYear()                      { return year; }
-    public String getMajor()                  { return major; }
-    public boolean isOpenForRegistration()    { return openForRegistration; }
-    public List<Teacher> getInstructors()     { return instructors; }
-    public List<Student> getEnrolledStudents(){ return enrolledStudents; }
+    public String getCourseId() { 
+        return courseId; 
+    }
 
-    public void setOpenForRegistration(boolean open) { this.openForRegistration = open; }
+    public String getName() { 
+        return name; 
+    }
+
+    public int getCredits() { 
+        return credits; 
+    }
+
+    public int getYear() { 
+        return year; 
+    }
+
+    public String getMajor() { 
+        return major; 
+    }
+
+    public boolean isOpenForRegistration() { 
+        return openForRegistration; 
+    }
+
+    public List<Teacher> getInstructors() { 
+        return instructors; 
+    }
+
+    public List<Student> getEnrolledStudents() { 
+        return enrolledStudents; 
+    }
+
+    public void setOpenForRegistration(boolean open) { 
+        this.openForRegistration = open; 
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -60,7 +93,9 @@ public class Course implements Serializable {
     }
 
     @Override
-    public int hashCode() { return Objects.hash(courseId); }
+    public int hashCode() { 
+        return Objects.hash(courseId); 
+    }
 
     @Override
     public String toString() {

@@ -28,7 +28,9 @@ public class Manager extends Employee implements Serializable {
     }
 
     public void subscribe(Employee e) {
-        if (!observers.contains(e)) observers.add(e);
+        if (!observers.contains(e)) {
+            observers.add(e);
+        }
     }
 
     public void unsubscribe(Employee e) {
@@ -47,9 +49,12 @@ public class Manager extends Employee implements Serializable {
     
     public void addCourseForRegistration(Course course) {
         course.setOpenForRegistration(true);
-        if (!managedCourses.contains(course)) managedCourses.add(course);
+        if (!managedCourses.contains(course)) {
+            managedCourses.add(course);
+        }
         System.out.println("  Course opened for registration: " + course.getName());
     }
+    
     public boolean approveRegistration(Student student, Course course) {
         if (!student.getPendingCourses().contains(course)) {
             System.out.println("  No pending request from "
@@ -113,10 +118,21 @@ public class Manager extends Employee implements Serializable {
                 .forEach(t -> System.out.println("  " + t));
     }
 
-    public ManagerType getManagerType()            { return managerType; }
-    public List<Course> getManagedCourses()        { return managedCourses; }
-    public List<Complaint> getReceivedComplaints() { return receivedComplaints; }
-    public List<String> getNews()                  { return news; }
+    public ManagerType getManagerType() { 
+        return managerType; 
+    }
+    
+    public List<Course> getManagedCourses() { 
+        return managedCourses; 
+    }
+    
+    public List<Complaint> getReceivedComplaints() { 
+        return receivedComplaints; 
+    }
+    
+    public List<String> getNews() { 
+        return news; 
+    }
 
     @Override
     public String toString() {

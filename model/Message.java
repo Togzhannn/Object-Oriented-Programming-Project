@@ -28,8 +28,19 @@ public class Message implements Serializable {
                 + "', content='" + content + "', isRead=" + isRead + "}";
     }
 
-    public Employee getSender()   { return sender; }
-    public Employee getReceiver() { return receiver; }
-    public String getContent()    { return content; }
-    public boolean isRead()       { return isRead; }
+    public Employee getSender() { 
+        return sender; 
+    }
+
+    public Employee getReceiver() { 
+        return receiver; 
+    }
+
+    public String getContent() { 
+        return content; 
+    }
+
+    public boolean isRead() { 
+        return isRead; 
+    }
 }

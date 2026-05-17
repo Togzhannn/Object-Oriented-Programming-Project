@@ -57,10 +57,27 @@ public abstract class Employee extends User implements Serializable {
         return "No new messages.";
     }
 
-    public String getDepartment()         { return department; }
-    public void setDepartment(String dep) { this.department = dep; }
-    public double getSalary()             { return salary; }
-    public void setSalary(double salary)  { this.salary = salary; }
-    public List<Message> getInbox()       { return inbox; }
-    public List<Request> getRequests()    { return requests; }
+    public String getDepartment() { 
+        return department; 
+    }
+    
+    public void setDepartment(String dep) { 
+        this.department = dep; 
+    }
+    
+    public double getSalary() { 
+        return salary; 
+    }
+    
+    public void setSalary(double salary) { 
+        this.salary = salary; 
+    }
+    
+    public List<Message> getInbox() { 
+        return inbox; 
+    }
+    
+    public List<Request> getRequests() { 
+        return requests; 
+    }
 }

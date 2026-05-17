@@ -20,14 +20,33 @@ public class Request implements Serializable {
         this.createdAt = LocalDateTime.now();
     }
 
-    public void sign()    { this.status = RequestStatus.SIGNED; }
-    public void approve() { this.status = RequestStatus.APPROVED; }
-    public void reject()  { this.status = RequestStatus.REJECTED; }
+    public void sign() {
+        this.status = RequestStatus.SIGNED;
+    }
 
-    public RequestStatus getStatus()  { return status; }
-    public String getFromEmployee()   { return fromEmployee; }
-    public String getDescription()    { return description; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void approve() {
+        this.status = RequestStatus.APPROVED;
+    }
+
+    public void reject() {
+        this.status = RequestStatus.REJECTED;
+    }
+
+    public RequestStatus getStatus() {
+        return status;
+    }
+    
+    public String getFromEmployee() {
+        return fromEmployee;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
 
     @Override
     public String toString() {

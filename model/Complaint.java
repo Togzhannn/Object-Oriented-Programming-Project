@@ -41,7 +41,15 @@ public class Complaint implements Serializable {
         return "Complaint{author='" + author.getFullName() + "', text='" + text + "', status=" + status + "}";
     }
 
-    public Employee getAuthor()        { return author; }
-    public String getText()            { return text; }
-    public ComplaintStatus getStatus() { return status; }
+    public Employee getAuthor() {
+        return author;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public ComplaintStatus getStatus() {
+        return status;
+    }
 }
