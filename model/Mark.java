@@ -40,13 +40,26 @@ public class Mark implements Serializable, Comparable<Mark> {
         return 0.0;
     }
 
-    public double getAtt1()     { return att1; }
-    public double getAtt2()     { return att2; }
-    public double getFinalExam(){ return finalExam; }
+    public double getAtt1(){ 
+    	return att1; 
+    }
+    public double getAtt2(){ 
+    	return att2; 
+    }
+    public double getFinalExam(){ 
+    	return finalExam; 
+    }
 
-    public void setAtt1(double att1)         { this.att1 = att1; }
-    public void setAtt2(double att2)         { this.att2 = att2; }
-    public void setFinalExam(double finalExam){ this.finalExam = finalExam; }
+    public void setAtt1(double att1){ 
+    	this.att1 = att1; 
+    }
+    public void setAtt2(double att2){ 
+    	this.att2 = att2; 
+    	
+    }
+    public void setFinalExam(double finalExam){ 
+    	this.finalExam = finalExam; 
+    }
 
     @Override
     public int compareTo(Mark other) {
