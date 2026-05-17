@@ -116,7 +116,12 @@ public class Main {
             manager.approveRegistration(dilara, bitCourse);
             Mark dilaraMark = new Mark(15, 12, 40); 
             dilara.getTranscript().addRecord(bitCourse, dilaraMark);
-            if (!dilara.isPassed()) dilara.incrementFailCount();
+             if (!dilara.isPassed())
+                try {
+                    dilara.incrementFailCount();
+                } catch (MaxFailReachedException e) {
+                    e.printStackTrace();
+                }
         } catch (CreditLimitExceededException e) {
             System.out.println("Seed error: " + e.getMessage());
         }
@@ -156,7 +161,7 @@ public class Main {
 
             switch (readInt()) {
                 case 1 -> {
-                    System.out.println("  === All Users (" + uni.getUsers().size() + ") ===");
+                    System.out.println(" All Users (" + uni.getUsers().size() + ") ");
                     uni.getUsers().forEach(u -> System.out.printf("  [%d] %-20s %s%n",
                         u.getId(), u.getFullName(), u.getClass().getSimpleName()));
                 }
@@ -207,7 +212,7 @@ public class Main {
     static void managerMenu() {
         boolean back = false;
         while (!back) {
-            System.out.println("\n── MANAGER PANEL ──");
+            System.out.println("\n MANAGER PANEL");
             System.out.println("  1. View all courses");
             System.out.println("  2. Open course for registration");
             System.out.println("  3. Approve student registration");
@@ -278,7 +283,7 @@ public class Main {
 
         boolean back = false;
         while (!back) {
-            System.out.println("\n── TEACHER: " + teacher.getFullName()
+            System.out.println("\nTEACHER: " + teacher.getFullName()
                 + " [" + teacher.getDegree() + "] ──");
             System.out.println("  1. View my courses");
             System.out.println("  2. View students in course");
@@ -295,7 +300,7 @@ public class Main {
                     System.out.print("  Course id: ");
                     Course c = findCourse(sc.nextLine().trim());
                     if (c != null) {
-                        System.out.println("  === Students in " + c.getName() + " ===");
+                        System.out.println("  Students in " + c.getName() + " ");
                         c.getEnrolledStudents().stream()
                             .sorted(Comparator.comparing(Student::getLastName))
                             .forEach(s -> System.out.println("  " + s.getFullName()));
@@ -345,7 +350,7 @@ public class Main {
 
         boolean back = false;
         while (!back) {
-            System.out.printf("%n── STUDENT: %s | Year:%d | Major:%s | Credits:%d/21 | GPA:%.2f ──%n",
+            System.out.printf("%nSTUDENT: %s | Year:%d | Major:%s | Credits:%d/21 | GPA:%.2f ──%n",
                 student.getFullName(), student.getYear(), student.getMajor(),
                 student.getCurrentCredits(), student.getGPA());
             System.out.println("  1. View available courses");
@@ -361,7 +366,7 @@ public class Main {
 
             switch (readInt()) {
                 case 1 -> {
-                    System.out.println("  === Open Courses ===");
+                    System.out.println(" Open Courses ");
                     uni.getCourses().stream()
                         .filter(Course::isOpenForRegistration)
                         .forEach(c -> System.out.printf("  [%s] %s | %d cr%n",
@@ -408,7 +413,7 @@ public class Main {
                     catch (LowHIndexException e) { System.out.println("  ✗ " + e.getMessage()); }
                 }
                 case 7 -> {
-                    System.out.println("  === News ===");
+                    System.out.println("  Newss");
                     List<String> newsList = uni.getNews();
                     if (newsList.isEmpty()) System.out.println("  No news.");
                     else newsList.forEach(n -> System.out.println("  • " + n));
@@ -418,7 +423,7 @@ public class Main {
                     System.out.print("  Course id: ");
                     Course c = findCourse(sc.nextLine().trim());
                     if (c == null) { System.out.println("  Not found."); break; }
-                    System.out.println("  === Teachers of " + c.getName() + " ===");
+                    System.out.println(" Teachers of " + c.getName() );
                     if (c.getInstructors().isEmpty()) System.out.println("  No teachers assigned.");
                     else c.getInstructors().forEach(t -> System.out.println("  " + t.getFullName() + " | " + t.getDegree()
                                                                             + " | Rating: " + String.format("%.1f", t.getAverageRating())));
@@ -531,7 +536,7 @@ public class Main {
     }
 
     static void reportMenu() {
-        System.out.println("\n── REPORTS ──");
+        System.out.println("\n REPORTS");
         System.out.println("  1. Full academic report");
         System.out.println("  2. Top N students by GPA");
         System.out.println("  3. Failing students");
@@ -544,12 +549,12 @@ public class Main {
             case 2 -> {
                 System.out.print("  N: ");
                 int n = readInt();
-                System.out.println("  === Top " + n + " ===");
+                System.out.println("  Top " + n );
                 report.getTopStudents(n).forEach(s ->
                     System.out.printf("  %s | GPA: %.2f%n", s.getFullName(), s.getGPA()));
             }
             case 3 -> {
-                System.out.println("  === Failing Students ===");
+                System.out.println(" Failing Students");
                 List<Student> fs = report.getFailingStudents();
                 if (fs.isEmpty()) System.out.println("  None!");
                 else fs.forEach(s -> System.out.printf("  %s | Fails: %d%n",
