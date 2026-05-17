@@ -9,15 +9,6 @@ import model.teacher.*;
 import java.time.LocalDate;
 import java.util.*;
 
-/**
-Main — Interactive console menu for the University System.
- * Design Patterns:
- *  1. Singleton University (one instance for the whole system)
- *  2. Facade University as single access point to all data
- *  3. Observer Manager.publishNews() notifies subscribed employees
- *  4. Strategy ResearchPaperComparators (BY_CITATIONS / BY_DATE / BY_PAGES)
- *  5. Command util.Command functional interface used in Admin
- */
 public class Main {
 
     static Scanner sc = new Scanner(System.in);
@@ -88,7 +79,7 @@ public class Main {
 
         Project = new ResearchProject("Education for Silly");
 
-        for (Object u : List.of(admin, manager, profCool, lectorAURA, alice, bob, carol, researcherwork)) {
+        for (User u : List.of(admin, manager, profCool, lectorAURA, alice, bob, carol, researcherwork)) {
             uni.addUser(u);
         }
         for (Course c : List.of(bitCourse, oopCourse, dbCourse)) uni.addCourse(c);
