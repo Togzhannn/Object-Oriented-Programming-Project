@@ -4,10 +4,13 @@ import exceptions.InfoNotCorrectException;
 import exceptions.UserNotFoundException;
 import util.Command;
 import util.SystemLogger;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Admin extends User {
+public class Admin extends User implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private List<User> users;
 
