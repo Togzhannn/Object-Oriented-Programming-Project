@@ -24,6 +24,7 @@ public class Main {
     static ResearchProject Project;
 
     public static void main(String[] args) {
+        seedData();
         System.out.println("LOGIN");
         System.out.print("Email: ");
         String em = sc.nextLine();
@@ -37,7 +38,6 @@ public class Main {
         System.out.println("Access denied: " + e.getMessage());
         return;
     }
-        seedData();
 
         boolean running = true;
         while (running) {
@@ -523,7 +523,7 @@ public class Main {
                 case 8 -> {
                     System.out.println("  Demo: assign lector (h-index=0) as supervisor for me...");
                     try {
-                        alice.assignSupervisor(lectorAURA);
+                        togzhan.assignSupervisor(lectorAURA);
                         System.out.println("  ERROR: should have thrown!");
                     } catch (LowHIndexException e) {
                         System.out.println("  ✓ LowHIndexException: " + e.getMessage());
