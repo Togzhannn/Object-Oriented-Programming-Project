@@ -90,7 +90,5 @@ public class University {
                 + ", courses=" + courses.size() + "}";
     }
 
-    public void addUser(Object u) {
-        throw new UnsupportedOperationException("Unimplemented method 'addUser'");
-    }
+
 }
