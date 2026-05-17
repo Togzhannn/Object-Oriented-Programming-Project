@@ -135,11 +135,12 @@ public class Student extends User implements Serializable, Researcher {
 
     public Transcript getTranscript() { return transcript; }
 
-    public void incrementFailCount() {
+    public void incrementFailCount() throws MaxFailReachedException {
         failCount++;
-        if (failCount > 3) {
+        if (failCount >= 3) {
             status = StudentStatus.EXPELLED;
-            System.out.println("  !! Student " + getFirstName() + " has been EXPELLED.");
+            throw new MaxFailReachedException(
+                getFullName() + " has failed 3 times and is expelled.");
         }
     }
 
@@ -155,15 +156,33 @@ public class Student extends User implements Serializable, Researcher {
         System.out.println("  Supervisor assigned for " + getFirstName() + ".");
     }
 
-    public int getYear()                       { return year; }
-    public String getMajor()                   { return major; }
-    public int getCurrentCredits()             { return currentCredits; }
-    public int getFailCount()                  { return failCount; }
-    public StudentStatus getStatus()           { return status; }
-    public List<Course> getRegisteredCourses() { return registeredCourses; }
-    public List<Course> getPendingCourses()    { return pendingCourses; }
-    public Researcher getSupervisor()          { return supervisor; }
-    public double getGPA()                     { return transcript.getGPA(); }
+    public int getYear(){ 
+        return year; 
+    }
+    public String getMajor(){ 
+        return major; 
+    }
+    public int getCurrentCredits(){ 
+        return currentCredits; 
+    }
+    public int getFailCount(){ 
+        return failCount; 
+    }
+    public StudentStatus getStatus(){ 
+        return status; 
+    }
+    public List<Course> getRegisteredCourses(){ 
+        return registeredCourses; 
+    }
+    public List<Course> getPendingCourses(){ 
+        return pendingCourses; 
+    }
+    public Researcher getSupervisor(){ 
+        return supervisor; 
+    }
+    public double getGPA(){ 
+        return transcript.getGPA(); 
+    }
 
     @Override
     public String toString() {
