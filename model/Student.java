@@ -25,7 +25,6 @@ public class Student extends User implements Serializable, Researcher {
     private List<Course> pendingCourses;
     private Researcher supervisor;
 
-    // ── Поля для Researcher ──
     private final List<ResearchPaper>   papers   = new ArrayList<>();
     private final List<ResearchProject> projects = new ArrayList<>();
 
