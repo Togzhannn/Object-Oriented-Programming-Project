@@ -42,6 +42,10 @@ public class Transcript implements Serializable {
         System.out.printf("  GPA: %.2f%n", getGPA());
     }
 
-    public Map<Course, Mark> getRecords() { return records; }
-    public String getStudentName()        { return studentName; }
+    public Map<Course, Mark> getRecords() { 
+    	return records; 
+    }
+    public String getStudentName(){ 
+    	return studentName; 
+    }
 }
