@@ -24,8 +24,8 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return "Message{from='" + sender.getFullName() + "', to='" + receiver.getFullName()
-                + "', content='" + content + "', isRead=" + isRead + "}";
+        return "Message from " + sender.getFullName() + " to " + receiver.getFullName() + 
+            ": " + content + " (Read: " + isRead + ")";
     }
 
     public Employee getSender() { 

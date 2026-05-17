@@ -36,10 +36,10 @@ public class Report implements Serializable {
     }
 
     public void printReport() {
-        System.out.println("  === Academic Report ===");
+        System.out.println("    Academic Report     ");
         System.out.printf("  Total Students: %d%n", students.size());
         System.out.printf("  Average GPA: %.2f%n", getAverageGpa());
-        System.out.println("  Top 3 Students:");
+        System.out.println("  Top 3 Students: ");
         getTopStudents(3).forEach(s -> System.out.println("    " + s.getFirstName()
                 + " " + s.getLastName() + " | GPA: " + String.format("%.2f", s.getGPA())));
         System.out.println("  Failing Students: " + getFailingStudents().size());

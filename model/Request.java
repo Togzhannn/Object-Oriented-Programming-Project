@@ -50,6 +50,6 @@ public class Request implements Serializable {
 
     @Override
     public String toString() {
-        return "[Request] From: " + fromEmployee + " | Status: " + status + "\n  " + description;
+        return "Request from " + fromEmployee + ", status is " + status + ", details: " + description;
     }
 }

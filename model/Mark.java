@@ -80,7 +80,7 @@ public class Mark implements Serializable, Comparable<Mark> {
 
     @Override
     public String toString() {
-        return String.format("ATT1: %.1f | ATT2: %.1f | Final: %.1f | Total: %.1f (%s)",
+        return String.format("1st attestation: %.1f | 2nd attestation: %.1f | final exam: %.1f | Total mark: %.1f (%s)",
                 att1, att2, finalExam, getTotal(), getLetterGrade());
     }
 }
