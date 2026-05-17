@@ -28,11 +28,21 @@ public class Lesson implements Serializable {
         if (!attendees.contains(s)) attendees.add(s);
     }
 
-    public Course getCourse()         { return course; }
-    public LessonType getType()       { return type; }
-    public LocalDateTime getDateTime(){ return dateTime; }
-    public String getRoom()           { return room; }
-    public List<Student> getAttendees(){ return attendees; }
+    public Course getCourse(){ 
+    	return course; 
+    }
+    public LessonType getType(){
+    	return type; 
+    }
+    public LocalDateTime getDateTime(){ 
+    	return dateTime; 
+    }
+    public String getRoom() {
+    	return room; 
+    }
+    public List<Student> getAttendees(){ 
+    	return attendees; 
+    }
 
     @Override
     public String toString() {
