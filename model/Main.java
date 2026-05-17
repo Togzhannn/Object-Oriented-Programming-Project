@@ -65,11 +65,11 @@ public class Main {
         profCool   = new Teacher(1, "Zuko", "Flame",  Title.PROFESSOR, "Fire@uni.kz", "pass123");
         lectorAURA = new Teacher(2, "Life", "Good",     Title.LECTOR,    "good@uni.kz",   "pass123");
 
-        togzhan = new Student(4, "togzann", "ree", "alice@uni.kz", "pass123", (int) 4.0, "CS");
-        moli  = new Student(5, "Moldyr",   "bee", "bob@uni.kz",  "pass123", 2, "CS");
-        dilara = new Student(6, "dilara", "White", "carol@uni.kz","pass123", 4, "CS");
+        togzhan = new Student(4, "togzann", "ree", "to@uni.kz", "pass123", (int) 4.0, "CS");
+        moli  = new Student(5, "Moldyr",   "bee", "mo_sharipova@uni.kz",  "pass123", 2, "CS");
+        dilara = new Student(6, "dilara", "White", "di@uni.kz","pass123", 4, "CS");
 
-        researcherwork = new ResearcherEmployee(7, "Eve", "Curie", "eve@uni.kz", "pass123", "Research Lab", 350000.0, "Research Associate");
+        researcherwork = new ResearcherEmployee(7, "rere", "Cutie", "ere@uni.kz", "pass123", "Research Lab", 350000.0, "Research Associate");
 
         profCool.addPaper(new ResearchPaper("Oracle Database In-Memory on Active Data Guard: Real-time Analytics on a Standby Database",
             List.of("Sukhada Pendse"), "IEEE Transactions", "10.1109/ICDE48307.2020.00139",
