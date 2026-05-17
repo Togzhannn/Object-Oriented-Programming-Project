@@ -1,2 +1,4 @@
 /InfoNotCorrectException.class
 /UserNotFoundException.class
+/CreditLimitExceededException.class
+/MaxFailReachedException.class
