@@ -24,8 +24,12 @@ public class University {
         return instance;
     }
 
-    public void addUser(User user) { users.add(user); }
-    public List<User> getUsers()   { return users; }
+    public void addUser(User user){ 
+        users.add(user); 
+    }
+    public List<User> getUsers(){ 
+        return users; 
+    }
 
     public List<Student> getStudents() {
         return users.stream()
@@ -39,14 +43,26 @@ public class University {
                 .map(u -> (Teacher) u).toList();
     }
 
-    public void addCourse(Course course) { courses.add(course); }
-    public List<Course> getCourses()     { return courses; }
+    public void addCourse(Course course){
+        courses.add(course); 
+    }
+    public List<Course> getCourses(){ 
+        return courses; 
+    }
 
-    public void addProject(ResearchProject project) { projects.add(project); }
-    public List<ResearchProject> getProjects()      { return projects; }
+    public void addProject(ResearchProject project){ 
+        projects.add(project); 
+    }
+    public List<ResearchProject> getProjects(){ 
+        return projects; 
+    }
 
-    public void addNews(String news)   { newsFeed.add(news); }
-    public List<String> getNews()      { return newsFeed; }
+    public void addNews(String news){ 
+        newsFeed.add(news); 
+    }
+    public List<String> getNews(){ 
+        return newsFeed; 
+    }
 
     public List<Researcher> getAllResearchers() {
         return users.stream()
@@ -55,7 +71,7 @@ public class University {
     }
 
     public void printAllPapers(Comparator<ResearchPaper> comparator) {
-        System.out.println("  === All Research Papers ===");
+        System.out.println("All Research Papers");
         getAllResearchers().stream()
                 .flatMap(r -> r.getResearchPapers().stream())
                 .distinct()
@@ -64,7 +80,7 @@ public class University {
     }
 
     public void printTopResearchers(int n) {
-        System.out.println("  === Top " + n + " Researchers by H-Index ===");
+        System.out.println(" Top " + n + " Researchers by H-Index ");
         getAllResearchers().stream()
                 .sorted(Comparator.comparingInt(Researcher::getHIndex).reversed())
                 .limit(n)
@@ -82,13 +98,13 @@ public class University {
                                 .sum()));
     }
 
-    public String getName() { return name; }
-
+    public String getName() { 
+        return name; 
+    }
     @Override
     public String toString() {
         return "University{name='" + name + "', users=" + users.size()
                 + ", courses=" + courses.size() + "}";
     }
-
 
 }
