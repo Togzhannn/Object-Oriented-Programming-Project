@@ -18,7 +18,7 @@ public class Main {
     static Manager manager;
     static Teacher profCool;      
     static Teacher lectorAURA;   
-    static Student alice, bob, carol;
+    static Student togzhan, moli, dilara, ersultan;
     static ResearcherEmployee researcherwork; 
     static Course  bitCourse, oopCourse, dbCourse;
     static ResearchProject Project;
@@ -45,20 +45,19 @@ public class Main {
 
 
     static void seedData() {
-        admin = new Admin(0, "Super", "Admin", "admin@uni.kz", "admin123");
+        admin = new Admin(0, "AAARH", "Admin", "admin@uni.kz", "admin123");
 
-        manager = new Manager(3, "Dana", "Bekova", "dana@uni.kz", "pass123","dana_manager","Academic Office", 400000.0, ManagerType.OR);
+        manager = new Manager(3, "Kira", "Light", "kira@uni.kz", "pass123","kira_manager","Academic Office", 400000.0, ManagerType.OR);
 
-        profCool   = new Teacher(1, "Alan", "Turing",  Title.PROFESSOR, "turing@uni.kz", "pass123");
-        lectorAURA = new Teacher(2, "John", "Doe",     Title.LECTOR,    "john@uni.kz",   "pass123");
+        profCool   = new Teacher(1, "Zuko", "Flame",  Title.PROFESSOR, "Fire@uni.kz", "pass123");
+        lectorAURA = new Teacher(2, "Life", "Good",     Title.LECTOR,    "good@uni.kz",   "pass123");
 
-        alice = new Student(4, "Alice", "Smith", "alice@uni.kz", "pass123", (int) 4.0, "CS");
-        bob   = new Student(5, "Bob",   "Jones", "bob@uni.kz",  "pass123", 2, "CS");
-        carol = new Student(6, "Carol", "White", "carol@uni.kz","pass123", 4, "CS");
+        togzhan = new Student(4, "togzann", "ree", "alice@uni.kz", "pass123", (int) 4.0, "CS");
+        me  = new Student(5, "Moldyr",   "bee", "bob@uni.kz",  "pass123", 2, "CS");
+        dilara = new Student(6, "dilara", "White", "carol@uni.kz","pass123", 4, "CS");
 
         researcherwork = new ResearcherEmployee(7, "Eve", "Curie", "eve@uni.kz", "pass123", "Research Lab", 350000.0, "Research Associate");
 
-        // Papers для profAlan
         profCool.addPaper(new ResearchPaper("Oracle Database In-Memory on Active Data Guard: Real-time Analytics on a Standby Database",
             List.of("Sukhada Pendse"), "IEEE Transactions", "10.1109/ICDE48307.2020.00139",
             12, LocalDate.of(2022, 3, 15), 85, ResearchTopic.DATABASES));
@@ -93,18 +92,18 @@ public class Main {
 
         try {
             alice.requestCourseRegistration(bitCourse);
-            manager.approveRegistration(alice,bitCourse);
-            alice.getTranscript().addRecord(bitCourse, new Mark(28, 25, 40)); // 93 = A
+            manager.approveRegistration(me,bitCourse);
+            me.getTranscript().addRecord(bitCourse, new Mark(28, 25, 40)); // 93 = A
 
-            bob.requestCourseRegistration(oopCourse);
-            manager.approveRegistration(bob, oopCourse);
+            togzhan.requestCourseRegistration(oopCourse);
+            manager.approveRegistration(togzhan, oopCourse);
             bob.getTranscript().addRecord(oopCourse, new Mark(20, 22, 30)); // 72 = C
 
-            carol.requestCourseRegistration(bitCourse);
-            manager.approveRegistration(carol, bitCourse);
-            Mark carolMark = new Mark(15, 12, 20); // 47 = F
-            carol.getTranscript().addRecord(bitCourse, carolMark);
-            if (!carolMark.isPassed()) carol.incrementFailCount();
+            dilara.requestCourseRegistration(bitCourse);
+            manager.approveRegistration(dilara, bitCourse);
+            Mark carolMark = new Mark(15, 12, 40); // 47 = F
+            dilara.getTranscript().addRecord(bitCourse, dilaraMark);
+            if (!dilara.isPassed()) dilara.incrementFailCount();
         } catch (CreditLimitExceededException e) {
             System.out.println("Seed error: " + e.getMessage());
         }
@@ -481,7 +480,7 @@ public class Main {
                     }
                 }
                 case 7 -> {
-                    System.out.println("  Demo: lectorJohn (no papers, not professor) joins aiProject...");
+                    System.out.println("  Demo: lector (no papers, not professor) joins Project...");
                     try {
                         lectorAURA.joinProject(Project);
                         System.out.println("  ERROR: should have thrown!");
@@ -490,7 +489,7 @@ public class Main {
                     }
                 }
                 case 8 -> {
-                    System.out.println("  Demo: assign lector (h-index=0) as supervisor for Alice...");
+                    System.out.println("  Demo: assign lector (h-index=0) as supervisor for me...");
                     try {
                         alice.assignSupervisor(lectorAURA);
                         System.out.println("  ERROR: should have thrown!");
@@ -554,7 +553,7 @@ public class Main {
         System.out.print("  Pages: ");     int pages     = readInt();
         System.out.print("  Citations: "); int cit       = readInt();
         System.out.print("  Year: ");      int yr        = readInt();
-        System.out.println("  Topics: AI  MACHINE_LEARNING  DATABASES  NETWORKS  SOFTWARE_ENGINEERING  OOP  CYBERSECURITY");
+        System.out.println("  Topics: DATABASES  NETWORKS  OOP ");
         System.out.print("  Topic: ");     String tp = sc.nextLine().trim().toUpperCase();
         ResearchTopic topic;
         try { topic = ResearchTopic.valueOf(tp); }
