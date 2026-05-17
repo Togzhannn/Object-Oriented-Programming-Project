@@ -2,7 +2,10 @@ package model;
 
 import enums.ManagerType;
 
-public class Manager extends Employee {
+import java.io.Serializable;
+
+public class Manager extends Employee implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private ManagerType managerType;
 
