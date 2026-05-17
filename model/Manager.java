@@ -27,13 +27,6 @@ public class Manager extends Employee implements Serializable {
         this.observers = new ArrayList<>();
     }
 
-    // ===================== Observer Pattern =====================
-
-    /**
-     * Subscribes an employee to receive news notifications.
-     *
-     * @param e the employee to subscribe
-     */
     public void subscribe(Employee e) {
         if (!observers.contains(e)) observers.add(e);
     }
