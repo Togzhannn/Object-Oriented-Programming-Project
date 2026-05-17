@@ -24,6 +24,19 @@ public class Main {
     static ResearchProject Project;
 
     public static void main(String[] args) {
+        System.out.println("LOGIN");
+        System.out.print("Email: ");
+        String em = sc.nextLine();
+
+        System.out.print("Password: ");
+        String pw = sc.nextLine();
+
+        try {
+            admin.login(em, pw);
+        } catch (InfoNotCorrectException e) {
+        System.out.println("Access denied: " + e.getMessage());
+        return;
+    }
         seedData();
 
         boolean running = true;
