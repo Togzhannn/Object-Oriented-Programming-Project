@@ -4,7 +4,8 @@ import enums.StudentStatus;
 import exceptions.CreditLimitExceededException;
 import exceptions.LowHIndexException;
 import exceptions.MaxFailReachedException;
-
+import model.researcher.Researcher;
+import model.teacher.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,14 +23,14 @@ public class Student extends User implements Serializable {
     private List<Course> pendingCourses;  
     private Researcher supervisor;       
 
-    public Student(String name, String surname, String login, String password, int year, String major) {
-        super(name, surname, login, password);
+    public Student(int id, String firstName, String lastName, String email, String password, int year, String major) {
+        super(id , firstName, lastName, email, password);
         this.year = year;
         this.major = major;
         this.currentCredits = 0;
         this.failCount = 0;
         this.status = StudentStatus.ACTIVE;
-        this.transcript = new Transcript(name + " " + surname);
+        this.transcript = new Transcript(getFirstName() + " " + getLastName());
         this.registeredCourses = new ArrayList<>();
         this.pendingCourses = new ArrayList<>();
     }
@@ -66,11 +67,11 @@ public class Student extends User implements Serializable {
             return;
         }
         teacher.receiveRating(rating);
-        System.out.println("  You rated " + teacher.getName() + ": " + rating + "/5");
+        System.out.println("  You rated " + teacher.getFirstName() + ": " + rating + "/5");
     }
 
     public void viewMarks() {
-        System.out.println("  === Marks for " + name + " ===");
+        System.out.println("  === Marks for " + getFirstName() + " ===");
         transcript.getRecords().forEach((course, mark) ->
                 System.out.println("  " + course.getName() + ": " + mark));
     }
@@ -83,7 +84,7 @@ public class Student extends User implements Serializable {
         failCount++;
         if (failCount > 3) {
             status = StudentStatus.EXPELLED;
-            System.out.println("  !! Student " + name + " has been EXPELLED (3 fails exceeded).");
+            System.out.println("  !! Student " + getFirstName() + " has been EXPELLED (3 fails exceeded).");
         }
     }
 
@@ -93,11 +94,10 @@ public class Student extends User implements Serializable {
             return;
         }
         if (supervisor.getHIndex() < 3) {
-            throw new LowHIndexException("Supervisor's h-index (" + supervisor.getHIndex()
-                    + ") is less than 3. Cannot assign as supervisor.");
+            throw new LowHIndexException(supervisor.toString(), supervisor.getHIndex());
         }
         this.supervisor = supervisor;
-        System.out.println("  Supervisor assigned for " + name + ".");
+        System.out.println("  Supervisor assigned for " + getFirstName() + ".");
     }
 
     

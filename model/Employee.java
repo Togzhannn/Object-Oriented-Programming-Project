@@ -16,11 +16,12 @@ public abstract class Employee extends User implements Serializable {
 
     public Employee(int id, String firstName, String lastName,
                     String email, String password,
-                    String department, double salary) {
+                    String department, String department2, double salary, String username) {
         super(id, firstName, lastName, email, password);
         this.department = department;
         this.salary = salary;
     }
+
 
     public void sendMessage(Employee to, String text) {
         Message message = new Message(this, to, text);
