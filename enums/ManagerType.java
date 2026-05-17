@@ -1,6 +1,6 @@
 package enums;
 
-public enum ManagerType {
+public enum ManagerType{
     OR,
     DEPARTMENT,
     DEAN,
