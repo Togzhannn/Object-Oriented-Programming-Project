@@ -191,7 +191,9 @@ public class Student extends User implements Serializable, Researcher {
                 + ", Credits: " + currentCredits + ", GPA: " + String.format("%.2f", getGPA())
                 + ", Status: " + status;
     }
-    public boolean isPassed() {
-        throw new UnsupportedOperationException("Unimplemented method 'isPassed'");
-    }
+   
+	public boolean isPassed() {
+		return false;
+	}
+   
 }
