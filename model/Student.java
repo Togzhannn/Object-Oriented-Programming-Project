@@ -13,21 +13,49 @@ import model.teacher.*;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * Represents student in the university system.
+ *
+ * Student can:
+ * register for courses,
+ * view transcript and marks,
+ * rate teachers
+ * and participate in research activities.
+ * Students may also become researchers
+ * by publishing papers and joining projects.
+ */
 public class Student extends User implements Serializable, Researcher {
     private static final long serialVersionUID = 1L;
-
+    /**
+     * Current study year of the student.
+     */
     private int year;
     private String major;
+    /**
+     * Current amount of registered credits.
+     * Used for credit limit validation.
+     */
     private int currentCredits;
     private int failCount;
+    /**
+     * Academic status of student (ACTIVE, EXPELLED, etc.).
+     */
     private StudentStatus status;
     private Transcript transcript;
     private List<Course> registeredCourses;
     private List<Course> pendingCourses;
+    /**
+     * Research supervisor.
+     * Available only for 4th year students.
+     */
     private Researcher supervisor;
 
     private final List<ResearchPaper>   papers   = new ArrayList<>();
     private final List<ResearchProject> projects = new ArrayList<>();
+    /**
+     * Creates new student object. 
+     * Student initially: has ACTIVE status, zero credits, empty transcript, and no registered courses.
+     */
 
     public Student(int id, String firstName, String lastName,
                    String email, String password, int year, String major) {
@@ -42,7 +70,13 @@ public class Student extends User implements Serializable, Researcher {
         this.pendingCourses = new ArrayList<>();
     }
 
-   
+    /**
+     * Allows student to join research project. In this system student must already have
+     * published research papers before joining.
+     *
+     * @param project target research project
+     * @throws NonResearcherException if student has no papers
+     */
     @Override
     public void joinProject(ResearchProject project) throws NonResearcherException {
         if (papers.isEmpty()) {
@@ -58,7 +92,10 @@ public class Student extends User implements Serializable, Researcher {
     public void addPaper(ResearchPaper paper) {
         if (!papers.contains(paper)) papers.add(paper);
     }
-
+    /**
+     * Calculates student's h-index using citations from published papers.
+     * @return calculated h-index
+     */
     @Override
     public int getHIndex() {
         int[] sorted = papers.stream()
@@ -91,7 +128,17 @@ public class Student extends User implements Serializable, Researcher {
         if (papers.isEmpty()) { System.out.println("  No papers."); return; }
         papers.stream().sorted(comparator).forEach(p -> System.out.println("  " + p));
     }
-
+    /**
+     * Sends request for course registration.
+     * Registration request will fail if:
+     * - registration is closed,
+     * - credit limit exceeds 21 credits,
+     * - student already requested this course.
+     * 
+     * @param c target course
+     * @return true if request sent successfully
+     * @throws CreditLimitExceededException if credit limit exceeded
+     */
     public boolean requestCourseRegistration(Course c) throws CreditLimitExceededException {
         if (!c.isOpenForRegistration()) {
             System.out.println("  Course " + c.getName() + " is not open for registration.");
@@ -109,7 +156,14 @@ public class Student extends User implements Serializable, Researcher {
         System.out.println("  Registration request sent for: " + c.getName());
         return true;
     }
-
+    /**
+     * Confirms previously requested registration.
+     * After approval:
+     * course becomes registered
+     * and credits are updated.
+     *
+     * @param c approved course
+     */
     public void confirmCourseRegistration(Course c) {
         if (pendingCourses.remove(c)) {
             registeredCourses.add(c);
@@ -135,6 +189,14 @@ public class Student extends User implements Serializable, Researcher {
     public void viewTranscript() { transcript.print(); }
 
     public Transcript getTranscript() { return transcript; }
+    /**
+     * Increases fail counter.
+     *
+     * According to system rules,
+     * student is expelled after 3 failures.
+     *
+     * @throws MaxFailReachedException if fail limit reached
+     */
 
     public void incrementFailCount() throws MaxFailReachedException {
         failCount++;
@@ -144,7 +206,16 @@ public class Student extends User implements Serializable, Researcher {
                 getFullName() + " has failed 3 times and is expelled.");
         }
     }
-
+    /**
+     * Assigns research supervisor to student.
+     * According to university rules:
+     * only 4th year students may have supervisors.
+     *
+     * Supervisor must also have
+     * h-index >= 3.
+     * @param supervisor assigned researcher
+     * @throws LowHIndexException if h-index is lower than 3
+     */
     public void assignSupervisor(Researcher supervisor) throws LowHIndexException {
         if (year != 4) {
             System.out.println("  Only 4th year students can have a supervisor.");
@@ -191,7 +262,11 @@ public class Student extends User implements Serializable, Researcher {
                 + ", Credits: " + currentCredits + ", GPA: " + String.format("%.2f", getGPA())
                 + ", Status: " + status;
     }
-   
+    /**
+     * Placeholder method for pass/fail validation.
+     * Can be expanded in future versions
+     * of the system.
+     */
 	public boolean isPassed() {
 		return false;
 	}
