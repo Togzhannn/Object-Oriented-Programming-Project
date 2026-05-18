@@ -1,16 +1,24 @@
 package model;
 
 import exceptions.InfoNotCorrectException;
-import exceptions.UserNotFoundException;
+import exceptions.UserNotFoundException; 
 import util.Command;
 import util.SystemLogger;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+/**
+ * Represents admin of our university system.
+ * Admin can manage users like adding, removing, updating and search them.
+ * Also admin can: view system logs, block users and reset passwords.
+ */
 
 public class Admin extends User implements Serializable {
     private static final long serialVersionUID = 1L;
+    /**
+     * List of users managed by admin.
+     */
 
     private List<User> users;
 
@@ -18,6 +26,9 @@ public class Admin extends User implements Serializable {
         super(id, firstName, lastName, email, password);
         this.users = new ArrayList<>();
     }
+    /**
+     * Adds new user into the system. Action is also saved into logs.
+     */
 
     public boolean addUser(User user) {
         Command addCommand = () ->
@@ -32,6 +43,8 @@ public class Admin extends User implements Serializable {
         return true;
     }
 
+    /** @throws UserNotFoundException if user not found
+    */
     public boolean removeUser(String userId) throws UserNotFoundException {
         int id = parseId(userId);
         User toRemove = findById(id);
@@ -42,6 +55,9 @@ public class Admin extends User implements Serializable {
         System.out.println("User id=" + userId + " removed.");
         return true;
     }
+    /**
+     * Updates information of existing user.
+     * @param userId target user id
 
     public void updateUser(String userId, User updatedUser) throws UserNotFoundException {
         int id = parseId(userId);
@@ -51,6 +67,12 @@ public class Admin extends User implements Serializable {
         SystemLogger.getInstance().log("ADMIN [" + getFullName() + "] updated user id=" + userId);
         System.out.println("User id=" + userId + " updated.");
     }
+    /**
+     * Searches user by first name, last name or id.
+     * @param keyword search keyword
+     * @return found user
+     * @throws UserNotFoundException if user does not exist
+     */
 
     public User searchUser(String keyword) throws UserNotFoundException {
         return users.stream()
@@ -116,7 +138,10 @@ public class Admin extends User implements Serializable {
     public String toString() {
         return "Admin: " + getFullName() + " (ID: " + getId() + ", managing " + users.size() + " users)";
     }
-
+    /**
+     * Returns list of all users.
+     * @return users list
+     */
     public List<User> getUsers() {
         return new ArrayList<>(users);
     }
