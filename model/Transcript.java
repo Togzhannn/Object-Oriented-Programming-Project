@@ -4,12 +4,25 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents academic transcript of student.
+ *
+ * Transcript stores:
+ * courses,
+ * marks
+ * and GPA information.
+ *
+ * Used for tracking student academic performance.
+ */
 public class Transcript implements Serializable {
     private static final long serialVersionUID = 1L;
-
-    private String studentName;
+    private String studentName; //full name of transcript owner.
     private Map<Course, Mark> records;
-
+    /**
+     * Creates new transcript object.
+     * Initially transcript contains no records.
+     * @param studentName student full name
+     */
     public Transcript(String studentName) {
         this.studentName = studentName;
         this.records = new HashMap<>();
@@ -18,7 +31,13 @@ public class Transcript implements Serializable {
     public void addRecord(Course c, Mark m) {
         records.put(c, m);
     }
-
+    /**
+     * calculates GPA using all transcript records.
+     * GPA is calculated based on:
+     * grade points and course credits.
+     *
+     * @return calculated GPA
+     */
     public double getGPA() {
         if (records.isEmpty()) return 0.0;
         double totalPoints = 0;
@@ -37,7 +56,7 @@ public class Transcript implements Serializable {
         }
     }
 
-    public void print() {
+    public void print() { // displays transcript information
         System.out.println("\n    Transcript: " + studentName + "     ");
         if (records.isEmpty()) { System.out.println("  No records."); return; }
         for (Map.Entry<Course, Mark> entry : records.entrySet()) {
@@ -50,6 +69,9 @@ public class Transcript implements Serializable {
     public Map<Course, Mark> getRecords() { 
     	return records; 
     }
+    /**
+     * @return transcript owner name
+     */
     public String getStudentName(){ 
     	return studentName; 
     }
